@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="${pojo.groupId}.${pojo.artifactId}.I${pojo.pojoName}Mapper">
+
+	<!-- 查询的resultMap to ${fn.lowerCaseFristChar(pojo.pojoName)} -->
+	<resultMap type="${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}" id="${fn.lowerCaseFristChar(pojo.pojoName)}ResultMap">
+	<%
+	for(field in pojo.fields){
+	%>
+		<result property="${fn.firstLowerUnderUpper(field.filedName)}" column="${field.filedName}" />
+	<%
+	}
+	%>
+	</resultMap>
+	
+	<!-- 插入一条 ${fn.lowerCaseFristChar(pojo.pojoName)} -->
+	<insert id="add${pojo.pojoName}" parameterType="${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}">
+		<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+			SELECT @@IDENTITY
+		</selectKey>
+		
+		insert into ${pojo.srcTableName}(
+			<%
+			for(var i=0;i<pojo.fields.~size;i++){
+			%>
+				${pojo.fields[i].filedName}${i+1<pojo.fields.~size?","}
+			<%
+			}
+			%>
+		)
+		VALUES(
+			<%
+			for(var i=0;i<pojo.fields.~size;i++){
+			%>
+				#{${fn.firstLowerUnderUpper(pojo.fields[i].filedName)}}${i+1<pojo.fields.~size?","}
+			<%
+			}
+			%>
+		)
+	</insert>	
+	
+	<update id="delete${pojo.pojoName}" parameterType="int">
+		update ${pojo.srcTableName} set is_deleted='1' where id=#{id}
+	</update>
+	
+	<!-- 根据id更新一条 ${fn.lowerCaseFristChar(pojo.pojoName)} -->
+	<update id="update${pojo.pojoName}" parameterType="${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}">
+		update ${pojo.srcTableName} set 
+		<%
+		for(var i=1;i<pojo.fields.~size;i++){
+		%>
+		${pojo.fields[i].filedName}=#{${fn.firstLowerUnderUpper(pojo.fields[i].filedName)}}${i+1<pojo.fields.~size?","}
+		<%
+		}
+		%>
+		where id = #{id}
+	</update>
+	
+	<!-- 根据id查询一条 ${fn.lowerCaseFristChar(pojo.pojoName)} -->
+	<select id="find${pojo.pojoName}ById" resultMap="${fn.lowerCaseFristChar(pojo.pojoName)}ResultMap">
+		select * from ${pojo.srcTableName} where id=#{id}
+	</select>
+	
+	<!-- 按条件分页查询 ${fn.lowerCaseFristChar(pojo.pojoName)} -->				
+	<select id="find${pojo.pojoName}ByPage" resultMap="${fn.lowerCaseFristChar(pojo.pojoName)}ResultMap" parameterType="${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}Cond">
+		select * from ${pojo.srcTableName}
+		<include refid="findWhereCond"/> 
+	</select>		
+	
+	<!-- 按条件查询所有 ${fn.lowerCaseFristChar(pojo.pojoName)} -->
+	<select id="find${pojo.pojoName}ByCond" resultMap="${fn.lowerCaseFristChar(pojo.pojoName)}ResultMap" parameterType="${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}Cond">
+		select * from ${pojo.srcTableName}
+		<include refid="findWhereCond"/> 
+	</select>	
+	
+	<!-- 查询条件 -->
+	<sql id="findWhereCond"> 
+		<where>
+			<%for(var i=1;i<pojo.fields.~size;i++){
+			if(pojo.fields[i].filedName=="is_deleted")
+			%>
+			and is_deleted = '0'
+			<%}%>
+		</where>
+	</sql>
+</mapper>

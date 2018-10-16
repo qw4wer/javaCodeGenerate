@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+    http://www.springframework.org/schema/mvc  
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	<context:annotation-config />
+	<!-- 打开Spring组件自动扫面，并配置要扫描的基本包 -->
+	<context:component-scan base-package="tk"></context:component-scan>
+
+
+	<!-- 下面定义了DbUtils的一个模板操作Bean -->
+	<!-- <bean id="dbUtilsTemplate" class="tk.qw4wer.codeGenerate.utils.DbUtilsTemplate"> 
+		</bean> -->
+
+	<!-- <bean id="baseTableSchemaHandler" class="tk.qw4wer.codeGenerate.utils.schemas.handler.MysqlTableSchemaHandler"></bean> 
+		<bean id="schemaUtils" class="tk.qw4wer.codeGenerate.utils.schemas.SchemaUtils"> 
+		<property name="baseTableSchemaHandler" ref="baseTableSchemaHandler"></property> 
+		</bean> -->
+
+	<bean id="events" class="tk.qw4wer.codeGenerate.pojo.Events" />
+
+	<import resource="beetl.xml" />
+
+
+</beans>

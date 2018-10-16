@@ -1,0 +1,81 @@
+<%
+var mapper = fn.lowerCaseFristChar(pojo.pojoName)+"Mapper";
+%>
+
+package ${pojo.groupId}.${pojo.artifactId}.services.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ${pojo.groupId}.${pojo.artifactId}.services.I${pojo.pojoName}Services;
+
+import ${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName};
+import ${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}Cond;
+import ${pojo.groupId}.${pojo.artifactId}.I${pojo.pojoName}Mapper;
+@Service("${fn.lowerCaseFristChar(pojo.pojoName)}Services")
+public class ${pojo.pojoName}Services implements I${pojo.pojoName}Services{
+
+	@Autowired	 
+	I${pojo.pojoName}Mapper ${mapper};
+
+ 	/**
+     * 新增${pojo.pojoName}
+     * @param ${fn.lowerCaseFristChar(pojo.pojoName)}
+     * @throws RuntimeException
+     */
+	public void add${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFristChar(pojo.pojoName)}) throws RuntimeException{
+		${mapper}.add${pojo.pojoName}(${fn.lowerCaseFristChar(pojo.pojoName)});
+	}
+	
+    /**
+     * 删除一条${pojo.pojoName}
+     * @param 主键id
+     * @throws RuntimeException
+     */
+	public void delete${pojo.pojoName}(int id) throws RuntimeException{
+		${mapper}.delete${pojo.pojoName}(id);
+	}
+
+ 	/**
+     * 修改一条${pojo.pojoName}
+     * @param ${fn.lowerCaseFristChar(pojo.pojoName)}
+     * @throws RuntimeException
+     */
+	public void update${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFristChar(pojo.pojoName)}) throws RuntimeException{
+		${mapper}.update${pojo.pojoName}(${fn.lowerCaseFristChar(pojo.pojoName)});
+	}
+
+	/**
+     * 查找一条${pojo.pojoName}
+     * @param 主键id
+     * @return ${pojo.pojoName}
+     * @throws RuntimeException
+     */
+    public ${pojo.pojoName} find${pojo.pojoName}ById(int id) throws RuntimeException{
+    	return ${mapper}.find${pojo.pojoName}ById(id);
+    }
+    
+    /**
+     * 分页查找${pojo.pojoName}
+     * @param cond
+     * @return 
+     * @throws RuntimeException
+     */
+    public List<${pojo.pojoName}>find${pojo.pojoName}ByPage(${pojo.pojoName}Cond cond) throws RuntimeException{
+    	return ${mapper}.find${pojo.pojoName}ByPage(cond);
+    }
+
+    /**
+     * 根据条件查找${pojo.pojoName}
+     * @param cond
+     * @return 
+     * @throws RuntimeException
+     */
+    public List<${pojo.pojoName}>find${pojo.pojoName}ByCond(${pojo.pojoName}Cond cond) throws RuntimeException{
+    	return ${mapper}.find${pojo.pojoName}ByCond(cond);
+    }
+
+	
+}

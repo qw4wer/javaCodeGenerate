@@ -1,0 +1,41 @@
+package ${groupId}.${artifactId}.data.pojo;
+
+import java.io.Serializable;
+
+/**
+ * 表 user(用于保存用户的用户名，密码，及对应的cookie和签到类)
+ *
+ */
+public class ${pojoName} implements Serializable{
+<%
+	/*生成字段*/
+    for(pojo in list){
+%>
+	/*
+		${pojo.remark}
+	*/	
+	${pojo.access} ${pojo.type} ${pojo.filedName};
+<%
+	}
+%>
+
+
+<%
+	/*生成get、set方法*/
+    for(pojo in list){
+%>
+	public void set${fn.upperCaseFristChar(pojo.filedName)}(${pojo.type} ${pojo.filedName}){
+		this.${pojo.filedName} = ${pojo.filedName};
+	}
+	
+	public ${pojo.type} get${fn.upperCaseFristChar(pojo.filedName)}(){
+		return ${pojo.filedName};
+	}
+
+<%
+	}
+%>
+
+
+
+}

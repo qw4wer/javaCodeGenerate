@@ -1,0 +1,13 @@
+package ${pojo.groupId}.${pojo.artifactId}.pojo;
+
+import java.io.Serializable;
+
+
+/**
+ * ${pojo.remark} 查询类
+ *
+ */
+public class ${pojo.pojoName}Cond implements Serializable{
+	private static final long serialVersionUID = 1L;
+
+}
