@@ -10,13 +10,13 @@ import tk.qw4wer.codeGenerate.utils.CommonUtils;
  * @author qw4wer
  *
  */
-public class LowerCaseFristChar implements Function{
+public class LowerCaseFirstChar implements Function{
 
 	@Override
 	public Object call(Object[] paras, Context ctx) {
 		String str = paras[0].toString();
 		
-		str = CommonUtils.lowerCaseFristChar(str);
+		str = CommonUtils.lowerCaseFirstChar(str);
 		
 		return str;
 	}

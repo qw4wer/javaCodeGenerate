@@ -1,5 +1,5 @@
 <%
-var mapper = fn.lowerCaseFristChar(pojo.pojoName)+"Mapper";
+var mapper = fn.lowerCaseFirstChar(pojo.pojoName)+"Mapper";
 %>
 
 package ${pojo.groupId}.${pojo.artifactId}.services.impl;
@@ -14,7 +14,7 @@ import ${pojo.groupId}.${pojo.artifactId}.services.I${pojo.pojoName}Services;
 import ${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName};
 import ${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}Cond;
 import ${pojo.groupId}.${pojo.artifactId}.I${pojo.pojoName}Mapper;
-@Service("${fn.lowerCaseFristChar(pojo.pojoName)}Services")
+@Service("${fn.lowerCaseFirstChar(pojo.pojoName)}Services")
 public class ${pojo.pojoName}Services implements I${pojo.pojoName}Services{
 
 	@Autowired	 
@@ -22,11 +22,11 @@ public class ${pojo.pojoName}Services implements I${pojo.pojoName}Services{
 
  	/**
      * 新增${pojo.pojoName}
-     * @param ${fn.lowerCaseFristChar(pojo.pojoName)}
+     * @param ${fn.lowerCaseFirstChar(pojo.pojoName)}
      * @throws RuntimeException
      */
-	public void add${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFristChar(pojo.pojoName)}) throws RuntimeException{
-		${mapper}.add${pojo.pojoName}(${fn.lowerCaseFristChar(pojo.pojoName)});
+	public void add${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFirstChar(pojo.pojoName)}) throws RuntimeException{
+		${mapper}.add${pojo.pojoName}(${fn.lowerCaseFirstChar(pojo.pojoName)});
 	}
 	
     /**
@@ -40,11 +40,11 @@ public class ${pojo.pojoName}Services implements I${pojo.pojoName}Services{
 
  	/**
      * 修改一条${pojo.pojoName}
-     * @param ${fn.lowerCaseFristChar(pojo.pojoName)}
+     * @param ${fn.lowerCaseFirstChar(pojo.pojoName)}
      * @throws RuntimeException
      */
-	public void update${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFristChar(pojo.pojoName)}) throws RuntimeException{
-		${mapper}.update${pojo.pojoName}(${fn.lowerCaseFristChar(pojo.pojoName)});
+	public void update${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFirstChar(pojo.pojoName)}) throws RuntimeException{
+		${mapper}.update${pojo.pojoName}(${fn.lowerCaseFirstChar(pojo.pojoName)});
 	}
 
 	/**

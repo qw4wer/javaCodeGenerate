@@ -39,7 +39,7 @@ public class CommonUtils {
 	 * @param str
 	 * @return
 	 */
-	public static String lowerCaseFristChar(String str){
+	public static String lowerCaseFirstChar(String str){
 		if (str.length() == 1)
 			return str.toLowerCase();
 		return MessageFormat.format("{0}{1}",

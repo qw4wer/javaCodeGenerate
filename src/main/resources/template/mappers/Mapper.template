@@ -3,8 +3,8 @@
 
 <mapper namespace="${pojo.groupId}.${pojo.artifactId}.I${pojo.pojoName}Mapper">
 
-	<!-- 查询的resultMap to ${fn.lowerCaseFristChar(pojo.pojoName)} -->
-	<resultMap type="${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}" id="${fn.lowerCaseFristChar(pojo.pojoName)}ResultMap">
+	<!-- 查询的resultMap to ${fn.lowerCaseFirstChar(pojo.pojoName)} -->
+	<resultMap type="${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}" id="${fn.lowerCaseFirstChar(pojo.pojoName)}ResultMap">
 	<%
 	for(field in pojo.fields){
 	%>
@@ -14,7 +14,7 @@
 	%>
 	</resultMap>
 	
-	<!-- 插入一条 ${fn.lowerCaseFristChar(pojo.pojoName)} -->
+	<!-- 插入一条 ${fn.lowerCaseFirstChar(pojo.pojoName)} -->
 	<insert id="add${pojo.pojoName}" parameterType="${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}">
 		<selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
 			SELECT @@IDENTITY
@@ -44,7 +44,7 @@
 		update ${pojo.srcTableName} set is_deleted='1' where id=#{id}
 	</update>
 	
-	<!-- 根据id更新一条 ${fn.lowerCaseFristChar(pojo.pojoName)} -->
+	<!-- 根据id更新一条 ${fn.lowerCaseFirstChar(pojo.pojoName)} -->
 	<update id="update${pojo.pojoName}" parameterType="${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}">
 		update ${pojo.srcTableName} set 
 		<%
@@ -57,19 +57,19 @@
 		where id = #{id}
 	</update>
 	
-	<!-- 根据id查询一条 ${fn.lowerCaseFristChar(pojo.pojoName)} -->
-	<select id="find${pojo.pojoName}ById" resultMap="${fn.lowerCaseFristChar(pojo.pojoName)}ResultMap">
+	<!-- 根据id查询一条 ${fn.lowerCaseFirstChar(pojo.pojoName)} -->
+	<select id="find${pojo.pojoName}ById" resultMap="${fn.lowerCaseFirstChar(pojo.pojoName)}ResultMap">
 		select * from ${pojo.srcTableName} where id=#{id}
 	</select>
 	
-	<!-- 按条件分页查询 ${fn.lowerCaseFristChar(pojo.pojoName)} -->				
-	<select id="find${pojo.pojoName}ByPage" resultMap="${fn.lowerCaseFristChar(pojo.pojoName)}ResultMap" parameterType="${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}Cond">
+	<!-- 按条件分页查询 ${fn.lowerCaseFirstChar(pojo.pojoName)} -->
+	<select id="find${pojo.pojoName}ByPage" resultMap="${fn.lowerCaseFirstChar(pojo.pojoName)}ResultMap" parameterType="${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}Cond">
 		select * from ${pojo.srcTableName}
 		<include refid="findWhereCond"/> 
 	</select>		
 	
-	<!-- 按条件查询所有 ${fn.lowerCaseFristChar(pojo.pojoName)} -->
-	<select id="find${pojo.pojoName}ByCond" resultMap="${fn.lowerCaseFristChar(pojo.pojoName)}ResultMap" parameterType="${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}Cond">
+	<!-- 按条件查询所有 ${fn.lowerCaseFirstChar(pojo.pojoName)} -->
+	<select id="find${pojo.pojoName}ByCond" resultMap="${fn.lowerCaseFirstChar(pojo.pojoName)}ResultMap" parameterType="${pojo.groupId}.${pojo.artifactId}.pojo.${pojo.pojoName}Cond">
 		select * from ${pojo.srcTableName}
 		<include refid="findWhereCond"/> 
 	</select>	

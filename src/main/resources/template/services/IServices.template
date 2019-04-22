@@ -12,10 +12,10 @@ public interface I${pojo.pojoName}Services{
 
  	/**
      * 新增${pojo.pojoName}
-     * @param ${fn.lowerCaseFristChar(pojo.pojoName)}
+     * @param ${fn.lowerCaseFirstChar(pojo.pojoName)}
      * @throws RuntimeException
      */
-	public void add${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFristChar(pojo.pojoName)}) throws RuntimeException;
+	public void add${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFirstChar(pojo.pojoName)}) throws RuntimeException;
 	
     /**
      * 删除一条${pojo.pojoName}
@@ -26,10 +26,10 @@ public interface I${pojo.pojoName}Services{
 
  	/**
      * 修改一条${pojo.pojoName}
-     * @param ${fn.lowerCaseFristChar(pojo.pojoName)}
+     * @param ${fn.lowerCaseFirstChar(pojo.pojoName)}
      * @throws RuntimeException
      */
-	public void update${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFristChar(pojo.pojoName)}) throws RuntimeException;
+	public void update${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFirstChar(pojo.pojoName)}) throws RuntimeException;
 
 	/**
      * 查找一条${pojo.pojoName}
