@@ -44,6 +44,7 @@ public class SchemaUtils {
 		for (Field field : fields) {
 			field.setPackagePath(EnumMysqlType.getPackagePath(field.getType()));
 			field.setType(EnumMysqlType.getTypeJavaNameByJdbcName(field.getType()));
+			field.setAccess("private");
 		}
 		return fields;
 	}

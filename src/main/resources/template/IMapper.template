@@ -1,4 +1,4 @@
-package ${pojo.groupId}.${pojo.artifactId}.data;
+package ${pojo.groupId}.${pojo.artifactId};
 
 import java.util.List;
 
