@@ -1,6 +1,6 @@
 package tk.qw4wer.codeGenerate.ui.panel;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 
 import javax.swing.*;
 
@@ -28,7 +28,7 @@ public class DbPanel extends JPanel {
     private void init(DbPanel dbPanel) {
 
         dbPanel.setLayout(new BorderLayout(5, 5));
-
+        dbPanel.setPreferredSize(new Dimension(300, 300));
         pane = new JScrollPane(dbTable);
 
         dbPanel.add(BorderLayout.NORTH, pane);
