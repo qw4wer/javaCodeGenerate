@@ -26,6 +26,8 @@ public class Events {
 
     private String code;
 
+    private boolean emptyDir;
+
     public String getUrl() {
         return url;
     }
@@ -112,5 +114,13 @@ public class Events {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public boolean isEmptyDir() {
+        return emptyDir;
+    }
+
+    public void setEmptyDir(boolean emptyDir) {
+        this.emptyDir = emptyDir;
     }
 }

@@ -82,6 +82,15 @@
 			%>
 			and is_deleted = '0'
 			<%}%>
+            <%
+            for(var i=1;i<pojo.fields.~size;i++){
+            %>
+            <if test="${pojo.fields[i].entityFiledName} != null and ${pojo.fields[i].entityFiledName} !=''">
+                AND ${pojo.fields[i].filedName} = #{${pojo.fields[i].entityFiledName}}
+            </if>
+            <%
+            }
+            %>
 		</where>
 	</sql>
 </mapper>

@@ -75,8 +75,10 @@ public class DbOperationProcess {
         Pojo pojo = null;
         try {
 
-            Runtime.getRuntime().exec(MessageFormat.format("cmd /s del /f /s /q {0}\\*.*", event.getDirPath()));
-            Runtime.getRuntime().exec(MessageFormat.format("cmd /s RD /S /q {0}", event.getDirPath()));
+            if (event.isEmptyDir()) {
+                Runtime.getRuntime().exec(MessageFormat.format("cmd  del /f /s /q {0}\\*.*", event.getDirPath()));
+                Runtime.getRuntime().exec(MessageFormat.format("cmd  RD /S /q {0}", event.getDirPath()));
+            }
             for (String table : event.getSelectTable()) {
                 pojo = SchemaUtils.getTable2Pojo(event.getSelectDb(), table);
                 pojo.setArtifactId(event.getArtifactId());
