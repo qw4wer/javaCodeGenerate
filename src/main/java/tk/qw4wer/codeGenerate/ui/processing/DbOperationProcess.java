@@ -76,8 +76,8 @@ public class DbOperationProcess {
         try {
 
             if (event.isEmptyDir()) {
-                Runtime.getRuntime().exec(MessageFormat.format("cmd  del /f /s /q {0}\\*.*", event.getDirPath()));
-                Runtime.getRuntime().exec(MessageFormat.format("cmd  RD /S /q {0}", event.getDirPath()));
+                Runtime.getRuntime().exec(MessageFormat.format("cmd /c del /f /s /q {0}\\*.*", event.getDirPath()));
+                Runtime.getRuntime().exec(MessageFormat.format("cmd /c RD /S /q {0}", event.getDirPath()));
             }
             for (String table : event.getSelectTable()) {
                 pojo = SchemaUtils.getTable2Pojo(event.getSelectDb(), table);
