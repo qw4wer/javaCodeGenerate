@@ -24,6 +24,8 @@ public enum EnumMysqlType {
 
 	JSON("String", String.class),
 
+	BIGINT("Long", Long.class),
+
 	;
 
 	public static EnumMysqlType getTypeByName(String name) {

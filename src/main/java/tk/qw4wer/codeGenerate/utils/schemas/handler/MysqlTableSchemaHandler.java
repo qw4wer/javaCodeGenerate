@@ -43,7 +43,7 @@ public class MysqlTableSchemaHandler implements BaseTableSchemaHandler {
 
 	@Override
 	public List<String> getTables(String dbName) {
-		String sql = "select t.TABLE_NAME from information_schema.TABLES t where t.TABLE_TYPE = 'BASE TABLE' and t.TABLE_SCHEMA =?";
+		String sql = "select t.TABLE_NAME from information_schema.TABLES t where t.TABLE_SCHEMA =?";
 		List<String> str = dbUtilsTemplate.get(sql, new String[] { dbName });
 		return str;
 	}

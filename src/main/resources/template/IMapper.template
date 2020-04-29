@@ -16,7 +16,7 @@ public interface I${pojo.pojoName}Mapper{
 	
     /**
      * 删除一条${pojo.pojoName}
-     * @param 主键id
+     * @param id 主键
      * @throws RuntimeException
      */
 	public void delete${pojo.pojoName}(int id) throws RuntimeException;
@@ -30,7 +30,7 @@ public interface I${pojo.pojoName}Mapper{
 
 	/**
      * 查找一条${pojo.pojoName}
-     * @param 主键id
+     * @param id 主键
      * @return ${pojo.pojoName}
      * @throws RuntimeException
      */
