@@ -1,5 +1,7 @@
 package tk.qw4wer.codeGenerate.pojo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.List;
 
 public class Events {
@@ -7,7 +9,7 @@ public class Events {
     private String url;
 
     private String port;
-
+    @JSONField(serialize = false)
     private String database;
 
     private String user;
@@ -17,15 +19,15 @@ public class Events {
     private String groupId;
 
     private String artifactId;
-
+    @JSONField(serialize = false)
     private String selectDb;
-
+    @JSONField(serialize = false)
     private List<String> selectTable;
 
     private String dirPath;
-
+    @JSONField(serialize = false)
     private String code;
-
+    @JSONField(serialize = false)
     private boolean emptyDir;
 
     public String getUrl() {

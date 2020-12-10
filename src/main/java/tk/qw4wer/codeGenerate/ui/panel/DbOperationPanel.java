@@ -1,17 +1,22 @@
 package tk.qw4wer.codeGenerate.ui.panel;
 
+import org.apache.commons.beanutils.BeanUtils;
 import tk.qw4wer.codeGenerate.events.EventCentre;
 import tk.qw4wer.codeGenerate.pojo.Events;
 import tk.qw4wer.codeGenerate.ui.processing.DbOperationProcess;
 import tk.qw4wer.codeGenerate.ui.text.area.MyTextArea;
 import tk.qw4wer.codeGenerate.utils.CommonUtils;
+import tk.qw4wer.codeGenerate.utils.ConfigUtils;
 import tk.qw4wer.codeGenerate.utils.events.EventBusUtils;
 import tk.qw4wer.codeGenerate.utils.logs.LogUtils;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 
 public class DbOperationPanel extends JPanel {
 
@@ -55,6 +60,8 @@ public class DbOperationPanel extends JPanel {
     private JButton connect = new JButton("连接");
     private JButton getTable = new JButton("获取表格");
     private JButton generate = new JButton("生成");
+    private JButton saveConfig = new JButton("保存");
+    private JButton readConfig = new JButton("读取");
 
     private JPanel textPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
@@ -108,6 +115,9 @@ public class DbOperationPanel extends JPanel {
         operationPanel.add(connect);
         operationPanel.add(getTable);
         operationPanel.add(generate);
+        operationPanel.add(new JLabel("|"));
+        operationPanel.add(saveConfig);
+        operationPanel.add(readConfig);
         panel.add(operationPanel);
 
         EventBusUtils.register(textArea);
@@ -189,6 +199,85 @@ public class DbOperationPanel extends JPanel {
                 } else {
                     fileText.setText(jfc.getSelectedFile().getAbsolutePath());
                 }
+            }
+        });
+
+        saveConfig.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if(CommonUtils.isStrEmpty(urlText.getText())){
+                    JOptionPane.showMessageDialog(null, "请输入url", "提示", 2);
+                    return;
+                }
+                String path = "";
+                jfc = new JFileChooser();
+                jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                int state = jfc.showOpenDialog(null);// 此句是打开文件选择器界面的触发语句
+                if (state == 1) {
+                    return;
+                } else {
+                    path = jfc.getSelectedFile().getAbsolutePath();
+                }
+
+
+
+                Events events = new Events();
+                events.setUrl(urlText.getText());
+                events.setUser(userText.getText());
+                events.setPwd(passText.getText());
+                events.setPwd(passText.getText());
+                events.setGroupId(groupIdText.getText());
+                events.setArtifactId(artifactIdText.getText());
+                ConfigUtils.saveConfig(path, events);
+
+            }
+        });
+        readConfig.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                String path = "";
+                jfc = new JFileChooser();
+                jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                jfc.setFileFilter(new FileFilter() {// FileFilter 为抽象类
+                    // 注意：这个不是实例化FileFilter类 ， 这是采用内部类的方式
+
+                    @Override
+                    public String getDescription() {// 显示为指定后缀名的文件
+                        return ConfigUtils.CONFIG_SUFFIX;
+                    }
+
+                    @Override
+                    public boolean accept(File f) {// 判断文件是否已java结尾
+                        if (f.getName().endsWith(ConfigUtils.CONFIG_SUFFIX)) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                });
+                int state = jfc.showOpenDialog(null);// 此句是打开文件选择器界面的触发语句
+                if (state == 1) {
+                    return;
+                } else {
+                    path = jfc.getSelectedFile().getAbsolutePath();
+                }
+
+
+                try {
+                    Events events = ConfigUtils.readConfig(path);
+                    urlText.setText(events.getUrl());
+                    userText.setText(events.getUser());
+                    passText.setText(events.getPwd());
+                    groupIdText.setText(events.getGroupId());
+                    artifactIdText.setText(events.getArtifactId());
+                    BeanUtils.copyProperties(events, EventCentre.getEvent());
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "读取失败", "提示", 2);
+                    ex.printStackTrace();
+                }
+
             }
         });
 
