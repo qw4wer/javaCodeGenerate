@@ -1,12 +1,12 @@
 package tk.qw4wer.codeGenerate.utils.beetls;
 
-import java.io.IOException;
-import java.util.Map;
-
 import org.beetl.core.Configuration;
 import org.beetl.core.Function;
 import org.beetl.core.GroupTemplate;
-import org.beetl.core.resource.FileResourceLoader;
+import org.beetl.core.resource.ClasspathResourceLoader;
+
+import java.io.IOException;
+import java.util.Map;
 
 public class BeetlGroupUtilConfiguration {
 
@@ -19,15 +19,17 @@ public class BeetlGroupUtilConfiguration {
 	private static String prefix;
 	
 	public static void init() {
-		String root =  BeetlGroupUtilConfiguration.class.getResource("/").getFile();
-		
-		
-		FileResourceLoader resourceLoader = new FileResourceLoader(root + templateDir,"utf-8");
+//		String root =  BeetlGroupUtilConfiguration.class.getResource("/").getFile();
+//
+//
+//		FileResourceLoader resourceLoader = new FileResourceLoader(root + templateDir,"utf-8");
+
+		ClasspathResourceLoader classpathResourceLoader = new ClasspathResourceLoader(templateDir,"utf-8");
 		Configuration cfg;
 		try {
 			cfg = Configuration.defaultConfiguration();
 			cfg.setCharset("UTF-8");
-			gt = new GroupTemplate(resourceLoader, cfg);
+			gt = new GroupTemplate(classpathResourceLoader, cfg);
 			registerFn();
 		} catch (IOException e) {
 			e.printStackTrace();

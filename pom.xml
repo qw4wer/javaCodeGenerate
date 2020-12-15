@@ -4,7 +4,7 @@
 	<groupId>tk.qw4wer</groupId>
 	<artifactId>codeGenerate</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<build/>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -70,4 +70,31 @@
 		</dependency>
 
 	</dependencies>
+
+	<build>
+        <plugins>
+            <plugin>
+			<artifactId>maven-assembly-plugin</artifactId>
+			<configuration>
+			<descriptorRefs>
+			<descriptorRef>jar-with-dependencies</descriptorRef>
+			</descriptorRefs>
+			<archive>
+			<manifest>
+			<mainClass>tk.qw4wer.codeGenerate.start.StartByUI</mainClass>
+			</manifest>
+			</archive>
+			</configuration>
+			<executions>
+			<execution>
+			<id>make-assembly</id>
+			<phase>package</phase>
+			<goals>
+			<goal>single</goal>
+			</goals>
+			</execution>
+			</executions>
+			</plugin>
+        </plugins>
+</build>
 </project>
