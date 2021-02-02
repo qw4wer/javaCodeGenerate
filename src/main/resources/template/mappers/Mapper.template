@@ -93,4 +93,28 @@
             %>
 		</where>
 	</sql>
+
+    <update id="batchInsert${pojo.pojoName}">
+        insert into ${pojo.srcTableName}(
+				<%
+                for(var i=0;i<pojo.fields.~size;i++){
+                %>
+                    ${pojo.fields[i].filedName}${i+1<pojo.fields.~size?","}
+                <%
+                }
+                %>
+		)
+        values
+        <foreach collection="collection" item="item" separator=",">
+            (
+            <%
+                for(var i=0;i<pojo.fields.~size;i++){
+            %>
+                    #{item.${fn.firstLowerUnderUpper(pojo.fields[i].filedName)}}${i+1<pojo.fields.~size?","}
+            <%
+            }
+            %>
+            )
+        </foreach>
+	</update>
 </mapper>

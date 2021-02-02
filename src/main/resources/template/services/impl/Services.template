@@ -77,5 +77,11 @@ public class ${pojo.pojoName}Services implements I${pojo.pojoName}Services{
     	return ${mapper}.find${pojo.pojoName}ByCond(cond);
     }
 
-	
+    /**
+     * 批量插入${pojo.pojoName}
+     * @throws RuntimeException
+     */
+	void batchInsert${pojo.pojoName} (List<${pojo.pojoName}> ${fn.lowerCaseFirstChar(pojo.pojoName)}List) throws RuntimeException{
+	    return ${mapper}.batchInsert${pojo.pojoName}(${fn.lowerCaseFirstChar(pojo.pojoName)}List);
+	}
 }

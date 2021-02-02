@@ -12,21 +12,21 @@ public interface I${pojo.pojoName}Mapper{
      * @param ${fn.lowerCaseFirstChar(pojo.pojoName)}
      * @throws RuntimeException
      */
-	public void add${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFirstChar(pojo.pojoName)}) throws RuntimeException;
+	void add${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFirstChar(pojo.pojoName)}) throws RuntimeException;
 	
     /**
      * 删除一条${pojo.pojoName}
      * @param id 主键
      * @throws RuntimeException
      */
-	public void delete${pojo.pojoName}(int id) throws RuntimeException;
+	void delete${pojo.pojoName}(int id) throws RuntimeException;
 
  	/**
      * 修改一条${pojo.pojoName}
      * @param ${fn.lowerCaseFirstChar(pojo.pojoName)}
      * @throws RuntimeException
      */
-	public void update${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFirstChar(pojo.pojoName)}) throws RuntimeException;
+	void update${pojo.pojoName}(${pojo.pojoName} ${fn.lowerCaseFirstChar(pojo.pojoName)}) throws RuntimeException;
 
 	/**
      * 查找一条${pojo.pojoName}
@@ -34,7 +34,7 @@ public interface I${pojo.pojoName}Mapper{
      * @return ${pojo.pojoName}
      * @throws RuntimeException
      */
-    public ${pojo.pojoName} find${pojo.pojoName}ById(int id) throws RuntimeException;
+    ${pojo.pojoName} find${pojo.pojoName}ById(int id) throws RuntimeException;
     
     /**
      * 分页查找${pojo.pojoName}
@@ -42,7 +42,7 @@ public interface I${pojo.pojoName}Mapper{
      * @return 
      * @throws RuntimeException
      */
-    public List<${pojo.pojoName}>find${pojo.pojoName}ByPage(${pojo.pojoName}Cond cond) throws RuntimeException;
+    List<${pojo.pojoName}>find${pojo.pojoName}ByPage(${pojo.pojoName}Cond cond) throws RuntimeException;
 
     /**
      * 根据条件查找${pojo.pojoName}
@@ -50,7 +50,11 @@ public interface I${pojo.pojoName}Mapper{
      * @return 
      * @throws RuntimeException
      */
-    public List<${pojo.pojoName}>find${pojo.pojoName}ByCond(${pojo.pojoName}Cond cond) throws RuntimeException;
+    List<${pojo.pojoName}> find${pojo.pojoName}ByCond(${pojo.pojoName}Cond cond) throws RuntimeException;
 
-	
+    /**
+     * 批量插入${pojo.pojoName}
+     * @throws RuntimeException
+     */
+	void batchInsert${pojo.pojoName} (List<${pojo.pojoName}> ${fn.lowerCaseFirstChar(pojo.pojoName)}List) throws RuntimeException;
 }
