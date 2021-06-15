@@ -81,7 +81,7 @@ public class ${pojo.pojoName}Services implements I${pojo.pojoName}Services{
      * 批量插入${pojo.pojoName}
      * @throws RuntimeException
      */
-	void batchInsert${pojo.pojoName} (List<${pojo.pojoName}> ${fn.lowerCaseFirstChar(pojo.pojoName)}List) throws RuntimeException{
-	    return ${mapper}.batchInsert${pojo.pojoName}(${fn.lowerCaseFirstChar(pojo.pojoName)}List);
+	public void batchInsert${pojo.pojoName} (List<${pojo.pojoName}> ${fn.lowerCaseFirstChar(pojo.pojoName)}List) throws RuntimeException{
+	    ${mapper}.batchInsert${pojo.pojoName}(${fn.lowerCaseFirstChar(pojo.pojoName)}List);
 	}
 }
