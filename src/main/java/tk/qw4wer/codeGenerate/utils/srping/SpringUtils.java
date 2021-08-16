@@ -1,21 +1,14 @@
 package tk.qw4wer.codeGenerate.utils.srping;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
-import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
-import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigUtils;
-import org.springframework.context.annotation.ScopeMetadata;
-
 import tk.qw4wer.codeGenerate.utils.DbUtilsTemplate;
 import tk.qw4wer.codeGenerate.utils.schemas.SchemaUtils;
 import tk.qw4wer.codeGenerate.utils.schemas.handler.MysqlTableSchemaHandler;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class SpringUtils {
 
@@ -36,6 +29,20 @@ public class SpringUtils {
 			builder.addConstructorArgValue(par.get(key));
 		}
 		dbf.registerBeanDefinition(id, builder.getBeanDefinition());
+	}
+
+	public static void registerAndRefreshBean(String id, Class<?> cls, Map<String, Object> par,String propertyReference) {
+		DefaultListableBeanFactory dbf = (DefaultListableBeanFactory) context.getBeanFactory();
+		dbf.destroySingleton(id);
+		BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(cls);
+		for (String key : par.keySet()) {
+			builder.addConstructorArgValue(par.get(key));
+		}
+		builder.addPropertyReference(propertyReference, propertyReference);
+
+		dbf.registerBeanDefinition(id, builder.getBeanDefinition());
+
+
 	}
 
 	public static void registerBeanAndInit(String id, Class<?> cls, Map<String, Object> par) {

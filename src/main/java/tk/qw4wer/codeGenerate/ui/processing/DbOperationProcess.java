@@ -5,6 +5,7 @@ import tk.qw4wer.codeGenerate.events.EventCentre;
 import tk.qw4wer.codeGenerate.pojo.Event;
 import tk.qw4wer.codeGenerate.pojo.Events;
 import tk.qw4wer.codeGenerate.pojo.Pojo;
+import tk.qw4wer.codeGenerate.utils.DbUtilsTemplate;
 import tk.qw4wer.codeGenerate.utils.MyDataSource;
 import tk.qw4wer.codeGenerate.utils.beetls.BeetlsUtils;
 import tk.qw4wer.codeGenerate.utils.events.EventBusUtils;
@@ -31,6 +32,7 @@ public class DbOperationProcess {
         map.put("user", events.getUser());
         map.put("pwd", events.getPwd());
         SpringUtils.registerBean("dataSource", MyDataSource.class, map);
+        SpringUtils.registerAndRefreshBean("dbUtilsTemplate", DbUtilsTemplate.class, new LinkedHashMap<String, Object>(),"dataSource");
     }
 
     /**
