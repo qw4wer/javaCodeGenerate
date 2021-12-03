@@ -12,10 +12,31 @@ import java.io.Serializable;
 	}
 %>
 
+<%
+    if(pojo.lombok){
+%>
+        import lombok.Builder;
+        import lombok.Data;
+        import lombok.experimental.Accessors;
+
+<%
+    }
+%>
+
 /**
  * ${pojo.remark}
  *
  */
+
+<%
+    if(pojo.lombok){
+%>
+@Data
+@Accessors(chain = true)
+@Builder
+<%
+    }
+%>
 public class ${pojo.pojoName} implements Serializable{
 	private static final long serialVersionUID = 1L;
 <%
@@ -32,18 +53,20 @@ public class ${pojo.pojoName} implements Serializable{
 
 
 <%
-	/*生成get、set方法*/
-    for(field in pojo.fields){
+    if(!pojo.lombok){
+        /*生成get、set方法*/
+        for(field in pojo.fields){
 %>
-	public void set${fn.upperCaseFristChar(fn.firstLowerUnderUpper(field.filedName))}(${field.type} ${fn.firstLowerUnderUpper(field.filedName)}){
-		this.${fn.firstLowerUnderUpper(field.filedName)} = ${fn.firstLowerUnderUpper(field.filedName)};
-	}
-	
-	public ${field.type} get${fn.upperCaseFristChar(fn.firstLowerUnderUpper(field.filedName))}(){
-		return ${fn.firstLowerUnderUpper(field.filedName)};
-	}
+        public void set${fn.upperCaseFristChar(fn.firstLowerUnderUpper(field.filedName))}(${field.type} ${fn.firstLowerUnderUpper(field.filedName)}){
+            this.${fn.firstLowerUnderUpper(field.filedName)} = ${fn.firstLowerUnderUpper(field.filedName)};
+        }
+
+        public ${field.type} get${fn.upperCaseFristChar(fn.firstLowerUnderUpper(field.filedName))}(){
+            return ${fn.firstLowerUnderUpper(field.filedName)};
+        }
 
 <%
+	    }
 	}
 %>
 

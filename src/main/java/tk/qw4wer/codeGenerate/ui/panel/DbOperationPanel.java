@@ -16,7 +16,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 
 public class DbOperationPanel extends JPanel {
 
@@ -53,8 +52,9 @@ public class DbOperationPanel extends JPanel {
 
 
     private JPanel emptyDirPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    private JLabel emptyDirLabel = new JLabel("");
     private JRadioButton emptyDirRadio = new JRadioButton("清空生成目录");
+
+    private JRadioButton isLombok = new JRadioButton("启用lombok");
 
     private JPanel operationPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     private JButton connect = new JButton("连接");
@@ -107,9 +107,8 @@ public class DbOperationPanel extends JPanel {
         filePanel.add(fileButton);
         panel.add(filePanel);
 
-        setPreferredSizes(emptyDirLabel);
-        emptyDirPanel.add(emptyDirLabel);
         emptyDirPanel.add(emptyDirRadio);
+        emptyDirPanel.add(isLombok);
         panel.add(emptyDirPanel);
 
         operationPanel.add(connect);
@@ -161,6 +160,7 @@ public class DbOperationPanel extends JPanel {
                 String artifactId = artifactIdText.getText();
                 String dirPath = fileText.getText();
                 boolean selected = emptyDirRadio.isSelected();
+                boolean isLombokSelected = isLombok.isSelected();
 
 
                 if (CommonUtils.isStrEmpty(groupId) || CommonUtils.isStrEmpty(artifactId) || CommonUtils.isStrEmpty(dirPath)) {
@@ -168,10 +168,11 @@ public class DbOperationPanel extends JPanel {
                     return;
                 }
                 Events events = EventCentre.getEvent();
-                events.setGroupId(groupId);
-                events.setArtifactId(artifactId);
-                events.setDirPath(dirPath);
-                events.setEmptyDir(selected);
+                events.setGroupId(groupId)
+                        .setArtifactId(artifactId)
+                        .setDirPath(dirPath)
+                        .setEmptyDir(selected)
+                        .setLombok(isLombokSelected);
                 if (CommonUtils.isCollectionEmpty(events.getSelectTable())) {
                     JOptionPane.showMessageDialog(null, "请选择要生成的表", "提示", 2);
                     return;
@@ -180,7 +181,7 @@ public class DbOperationPanel extends JPanel {
                     DbOperationProcess.build2File();
                     JOptionPane.showMessageDialog(null, "生成成功", "提示", 2);
                 } catch (Exception e1) {
-                    LogUtils.log2Area(e1.toString());
+                    LogUtils.log2Area(e1.getMessage());
                     e1.printStackTrace();
                 }
 

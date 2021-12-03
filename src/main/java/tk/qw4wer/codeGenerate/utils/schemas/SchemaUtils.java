@@ -1,17 +1,17 @@
 package tk.qw4wer.codeGenerate.utils.schemas;
 
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
-
 import tk.qw4wer.codeGenerate.pojo.Field;
 import tk.qw4wer.codeGenerate.pojo.Pojo;
 import tk.qw4wer.codeGenerate.utils.CommonUtils;
 import tk.qw4wer.codeGenerate.utils.schemas.handler.BaseTableSchemaHandler;
 import tk.qw4wer.codeGenerate.utils.schemas.types.EnumMysqlType;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SchemaUtils {
 
@@ -46,7 +46,7 @@ public class SchemaUtils {
 			field.setType(EnumMysqlType.getTypeJavaNameByJdbcName(field.getType()));
 			field.setAccess("private");
 		}
-		return fields;
+		return fields.stream().distinct().collect(Collectors.toList());
 	}
 
 	/**
@@ -57,11 +57,11 @@ public class SchemaUtils {
 	 * @return
 	 */
 	public static Pojo getTable2Pojo(String dbName, String tableName) {
-		Pojo pojo = new Pojo();
-		pojo.setRemark(getTableRemark(dbName, tableName));
-		pojo.setFields(getTableFields(dbName, tableName));
-		pojo.setPojoName(CommonUtils.upperCaseFristChar(CommonUtils.firstLowerUnderUpper(tableName)));
-		pojo.setSrcTableName(tableName);
+		Pojo pojo = Pojo.builder()
+				.remark(getTableRemark(dbName, tableName))
+				.fields(getTableFields(dbName, tableName))
+				.pojoName(CommonUtils.upperCaseFristChar(CommonUtils.firstLowerUnderUpper(tableName)))
+				.srcTableName(tableName).build();
 		return pojo;
 	}
 

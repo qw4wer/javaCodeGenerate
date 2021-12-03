@@ -32,7 +32,7 @@ public class DbOperationProcess {
         map.put("user", events.getUser());
         map.put("pwd", events.getPwd());
         SpringUtils.registerBean("dataSource", MyDataSource.class, map);
-        SpringUtils.registerAndRefreshBean("dbUtilsTemplate", DbUtilsTemplate.class, new LinkedHashMap<String, Object>(),"dataSource");
+        SpringUtils.registerAndRefreshBean("dbUtilsTemplate", DbUtilsTemplate.class, new LinkedHashMap<String, Object>(), "dataSource");
     }
 
     /**
@@ -83,8 +83,11 @@ public class DbOperationProcess {
             }
             for (String table : event.getSelectTable()) {
                 pojo = SchemaUtils.getTable2Pojo(event.getSelectDb(), table);
-                pojo.setArtifactId(event.getArtifactId());
-                pojo.setGroupId(event.getGroupId());
+                pojo.setArtifactId(event.getArtifactId())
+                        .setGroupId(event.getGroupId())
+                        .setLombok(event.isLombok())
+                ;
+
                 for (EnumBindingType bindingType : EnumBindingType.values()) {
                     BeetlsUtils.bindingToFile(pojo, event.getDirPath(), bindingType);
 
