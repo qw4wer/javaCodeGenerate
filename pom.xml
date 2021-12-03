@@ -8,7 +8,7 @@
 
   <properties>
     <beetl.version>3.0.11.RELEASE</beetl.version>
-    <commons-beanutils.version>1.9.2</commons-beanutils.version>
+    <commons-beanutils.version>1.9.4</commons-beanutils.version>
     <commons-dbcp.version>1.4</commons-dbcp.version>
     <commons-dbutils.version>1.6</commons-dbutils.version>
     <commons-io.version>2.8.0</commons-io.version>
