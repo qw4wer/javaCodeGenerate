@@ -14,7 +14,6 @@ public class AESUtils {
 
     private static final int ZERO = 0;
     private static final int ONE = 1;
-    private static String derectory = "E:\\StudyDocu\\code\\sth";
 
     //key： 加密密钥
     private static String key = "KnSn2DEbyN0rVnd8";

@@ -207,20 +207,19 @@ public class DbOperationPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                if(CommonUtils.isStrEmpty(urlText.getText())){
+                if (CommonUtils.isStrEmpty(urlText.getText())) {
                     JOptionPane.showMessageDialog(null, "请输入url", "提示", 2);
                     return;
                 }
                 String path = "";
                 jfc = new JFileChooser();
-                jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                int state = jfc.showOpenDialog(null);// 此句是打开文件选择器界面的触发语句
+                jfc.setSelectedFile(new File(urlText.getText() + ConfigUtils.CONFIG_SUFFIX));
+                int state = jfc.showDialog(null, "保存");// 此句是打开文件选择器界面的触发语句
                 if (state == 1) {
                     return;
                 } else {
                     path = jfc.getSelectedFile().getAbsolutePath();
                 }
-
 
 
                 Events events = new Events();

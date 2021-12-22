@@ -31,7 +31,10 @@ public class ConfigUtils {
         String str = JSONObject.toJSONString(events);
         byte[] bytes = AESUtils.encryptStr(str);
         try {
-            FileUtils.writeByteArrayToFile(new File(path + File.separatorChar + events.getUrl()  + CONFIG_SUFFIX), bytes, false);
+            if (!path.endsWith(CONFIG_SUFFIX)) {
+                path += CONFIG_SUFFIX;
+            }
+            FileUtils.writeByteArrayToFile(new File(path), bytes, false);
         } catch (IOException e) {
             e.printStackTrace();
         }
