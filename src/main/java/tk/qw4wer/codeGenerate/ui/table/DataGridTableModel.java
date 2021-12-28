@@ -1,14 +1,13 @@
 package tk.qw4wer.codeGenerate.ui.table;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.table.DefaultTableModel;
-
+import com.google.common.eventbus.Subscribe;
+import lombok.extern.log4j.Log4j;
 import tk.qw4wer.codeGenerate.pojo.Event;
 
-import com.google.common.eventbus.Subscribe;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
+@Log4j
 public class DataGridTableModel extends DefaultTableModel {
 
 	/**
@@ -46,7 +45,6 @@ public class DataGridTableModel extends DefaultTableModel {
 
 	@Subscribe
 	public void sub(Event<List<String>> event) {
-
 		if (this.id.equals(event.getControlId())) {
 			this.setRowCount(0);
 			for (String db : event.getData())

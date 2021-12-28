@@ -14,11 +14,11 @@ public class MainFrame extends JFrame {
 		this.setLayout(new BorderLayout(5, 5));
 
 		DbPanel dbPanel = new DbPanel();
-		getContentPane().add(BorderLayout.WEST, dbPanel);
+		this.add(BorderLayout.WEST, dbPanel);
 
 		DbOperationPanel operationPanel = new DbOperationPanel();
 
-		getContentPane().add(BorderLayout.CENTER, operationPanel);
+		this.add(BorderLayout.CENTER, operationPanel);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(800, 600);

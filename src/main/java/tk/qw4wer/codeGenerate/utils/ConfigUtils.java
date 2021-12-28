@@ -34,6 +34,7 @@ public class ConfigUtils {
             if (!path.endsWith(CONFIG_SUFFIX)) {
                 path += CONFIG_SUFFIX;
             }
+
             FileUtils.writeByteArrayToFile(new File(path), bytes, false);
         } catch (IOException e) {
             e.printStackTrace();

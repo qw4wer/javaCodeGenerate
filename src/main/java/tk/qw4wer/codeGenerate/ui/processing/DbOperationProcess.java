@@ -40,9 +40,10 @@ public class DbOperationProcess {
      */
     public static void refurbishDbTable() {
         List<String> dbs = SchemaUtils.getDb();
-        Event<List<String>> event = new Event<List<String>>();
-        event.setControlId("db");
-        event.setData(dbs);
+        Event<List<String>> event = Event.<List<String>>builder()
+                .controlId("db")
+                .data(dbs)
+                .build();
 
         EventBusUtils.post(event);
     }
@@ -56,18 +57,20 @@ public class DbOperationProcess {
             }
             return false;
         }).collect(Collectors.toList());
-        Event<List<String>> event = new Event<List<String>>();
-        event.setControlId("table");
-        event.setData(collect);
+        Event<List<String>> event = Event.<List<String>>builder()
+                .controlId("table")
+                .data(collect)
+                .build();
         EventBusUtils.post(event);
     }
 
     public static void refurbishTableTable() {
         List<String> tables = SchemaUtils.getTables(EventCentre.getEvent().getSelectDb());
 
-        Event<List<String>> event = new Event<List<String>>();
-        event.setControlId("table");
-        event.setData(tables);
+        Event<List<String>> event = Event.<List<String>>builder()
+                .controlId("table")
+                .data(tables)
+                .build();
 
         EventBusUtils.post(event);
     }

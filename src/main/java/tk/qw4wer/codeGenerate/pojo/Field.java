@@ -1,9 +1,11 @@
 package tk.qw4wer.codeGenerate.pojo;
 
+import lombok.Data;
 import tk.qw4wer.codeGenerate.utils.CommonUtils;
 
 import java.io.Serializable;
 
+@Data
 public class Field implements Serializable {
 
     /**
@@ -20,46 +22,6 @@ public class Field implements Serializable {
     private String type;
 
     private String packagePath;
-
-    public String getFiledName() {
-        return filedName;
-    }
-
-    public void setFiledName(String filedName) {
-        this.filedName = filedName;
-    }
-
-    public String getAccess() {
-        return access == null ? "" : access;
-    }
-
-    public void setAccess(String access) {
-        this.access = access;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getPackagePath() {
-        return packagePath;
-    }
-
-    public void setPackagePath(String packagePath) {
-        this.packagePath = packagePath;
-    }
 
     public String getEntityFiledName() {
         return CommonUtils.firstLowerUnderUpper(this.filedName);

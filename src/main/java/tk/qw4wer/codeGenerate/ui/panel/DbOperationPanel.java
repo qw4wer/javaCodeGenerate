@@ -7,7 +7,6 @@ import tk.qw4wer.codeGenerate.ui.processing.DbOperationProcess;
 import tk.qw4wer.codeGenerate.ui.text.area.MyTextArea;
 import tk.qw4wer.codeGenerate.utils.CommonUtils;
 import tk.qw4wer.codeGenerate.utils.ConfigUtils;
-import tk.qw4wer.codeGenerate.utils.events.EventBusUtils;
 import tk.qw4wer.codeGenerate.utils.logs.LogUtils;
 
 import javax.swing.*;
@@ -63,9 +62,10 @@ public class DbOperationPanel extends JPanel {
     private JButton saveConfig = new JButton("保存");
     private JButton readConfig = new JButton("读取");
 
-    private JPanel textPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
     private JTextArea textArea = new MyTextArea("log");
+
+    JScrollPane scroll = new JScrollPane(textArea);
+
 
     public DbOperationPanel() {
         super();
@@ -119,9 +119,12 @@ public class DbOperationPanel extends JPanel {
         operationPanel.add(readConfig);
         panel.add(operationPanel);
 
-        EventBusUtils.register(textArea);
-        textPanel.add(textArea);
-        panel.add(textArea);
+
+        scroll.setHorizontalScrollBarPolicy(
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scroll.setVerticalScrollBarPolicy(
+                JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        panel.add(scroll);
 
         connect.addMouseListener(new MouseAdapter() {
             @Override
@@ -213,7 +216,7 @@ public class DbOperationPanel extends JPanel {
                 }
                 String path = "";
                 jfc = new JFileChooser();
-                jfc.setSelectedFile(new File(urlText.getText() + ConfigUtils.CONFIG_SUFFIX));
+                jfc.setSelectedFile(new File(urlText.getText().replaceAll(":", "_") + ConfigUtils.CONFIG_SUFFIX));
                 int state = jfc.showDialog(null, "保存");// 此句是打开文件选择器界面的触发语句
                 if (state == 1) {
                     return;
