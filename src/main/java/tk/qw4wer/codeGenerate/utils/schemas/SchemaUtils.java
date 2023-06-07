@@ -11,76 +11,92 @@ import tk.qw4wer.codeGenerate.utils.schemas.types.EnumMysqlType;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class SchemaUtils {
 
-	private static BaseTableSchemaHandler baseTableSchemaHandler;
+    private static BaseTableSchemaHandler baseTableSchemaHandler;
 
-	public SchemaUtils() {
-		System.out.println();
-	}
+    public SchemaUtils() {
+        System.out.println();
+    }
 
-	/**
-	 * 获取表格的备注
-	 * 
-	 * @param dbName
-	 * @param tableName
-	 * @return
-	 */
-	public static String getTableRemark(String dbName, String tableName) {
-		return baseTableSchemaHandler.getTableRemark(dbName, tableName);
-	}
+    /**
+     * 获取表格的备注
+     *
+     * @param dbName
+     * @param tableName
+     * @return
+     */
+    public static String getTableRemark(String dbName, String tableName) {
+        return baseTableSchemaHandler.getTableRemark(dbName, tableName);
+    }
 
-	/**
-	 * 获取对应表格的字段，并生成对应的字段
-	 * 
-	 * @param dbName
-	 * @param tableName
-	 * @return
-	 */
-	public static List<Field> getTableFields(String dbName, String tableName) {
-		List<Field> fields = baseTableSchemaHandler.getTableField(dbName, tableName);
-		for (Field field : fields) {
-			field.setPackagePath(EnumMysqlType.getPackagePath(field.getType()));
-			field.setType(EnumMysqlType.getTypeJavaNameByJdbcName(field.getType()));
-			field.setAccess("private");
-		}
-		return fields.stream().distinct().collect(Collectors.toList());
-	}
+    /**
+     * 获取对应表格的字段，并生成对应的字段
+     *
+     * @param dbName
+     * @param tableName
+     * @return
+     */
+    public static List<Field> getTableFields(String dbName, String tableName) {
+        List<Field> fields = baseTableSchemaHandler.getTableField(dbName, tableName);
+        for (Field field : fields) {
+            field.setPackagePath(EnumMysqlType.getPackagePath(field.getType()));
+            field.setType(EnumMysqlType.getTypeJavaNameByJdbcName(field.getType()));
+            field.setAccess("private");
+        }
+        return fields.stream().distinct().collect(Collectors.toList());
+    }
 
-	/**
-	 * 获取表格信息生成pojo
-	 * 
-	 * @param dbName
-	 * @param tableName
-	 * @return
-	 */
-	public static Pojo getTable2Pojo(String dbName, String tableName) {
-		Pojo pojo = Pojo.builder()
-				.remark(getTableRemark(dbName, tableName))
-				.fields(getTableFields(dbName, tableName))
-				.pojoName(CommonUtils.upperCaseFristChar(CommonUtils.firstLowerUnderUpper(tableName)))
-				.srcTableName(tableName).build();
-		return pojo;
-	}
+    /**
+     * 获取表格的备注
+     *
+     * @param dbName
+     * @param tableName
+     * @return
+     */
+    public static Set<String> getImportList(String dbName, String tableName) {
+        List<Field> tableFields = getTableFields(dbName, tableName);
+        Set<String> set = tableFields.stream().map(field -> {
+            return field.getPackagePath();
+        }).collect(Collectors.toSet());
+        return set;
+    }
 
-	public static List<String> getDb() {
-		return baseTableSchemaHandler.getDb();
-	}
+    /**
+     * 获取表格信息生成pojo
+     *
+     * @param dbName
+     * @param tableName
+     * @return
+     */
+    public static Pojo getTable2Pojo(String dbName, String tableName) {
+        Pojo pojo = Pojo.builder()
+                .remark(getTableRemark(dbName, tableName))
+                .fields(getTableFields(dbName, tableName))
+                .pojoName(CommonUtils.upperCaseFristChar(CommonUtils.firstLowerUnderUpper(tableName)))
+                .srcTableName(tableName)
+                .importList(getImportList(dbName, tableName))
+                .build();
+        return pojo;
+    }
 
-	public static List<String> getTables(String dbName) {
-		return baseTableSchemaHandler.getTables(dbName);
-	}
+    public static List<String> getDb() {
+        return baseTableSchemaHandler.getDb();
+    }
 
-	public static BaseTableSchemaHandler getBaseTableSchemaHandler() {
-		return baseTableSchemaHandler;
-	}
+    public static List<String> getTables(String dbName) {
+        return baseTableSchemaHandler.getTables(dbName);
+    }
 
-	@Autowired(required = false)
-	@Lazy
-	public void setBaseTableSchemaHandler(BaseTableSchemaHandler baseTableSchemaHandler) {
-		SchemaUtils.baseTableSchemaHandler = baseTableSchemaHandler;
-	}
+    public static BaseTableSchemaHandler getBaseTableSchemaHandler() {
+        return baseTableSchemaHandler;
+    }
+
+    @Autowired(required = false)
+    @Lazy
+    public void setBaseTableSchemaHandler(BaseTableSchemaHandler baseTableSchemaHandler) {
+        SchemaUtils.baseTableSchemaHandler = baseTableSchemaHandler;
+    }
 
 }

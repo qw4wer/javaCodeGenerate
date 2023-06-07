@@ -3,10 +3,10 @@ package ${pojo.groupId}.${pojo.artifactId}.pojo;
 import java.io.Serializable;
 
 <%
-	for(field in pojo.fields){
-		if(field.packagePath != ""){
+	for(field in pojo.importList){
+		if(field != ""){
 %>
-			import ${field.packagePath};
+import ${field};
 <%
 		}else{}
 	}
@@ -15,9 +15,9 @@ import java.io.Serializable;
 <%
     if(pojo.lombok){
 %>
-        import lombok.Builder;
-        import lombok.Data;
-        import lombok.experimental.Accessors;
+import lombok.Builder;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 <%
     }

@@ -34,6 +34,8 @@ public class Pojo implements Serializable{
 
 	private boolean isLombok;
 
+	private Set<String> importList;
+
 	public String getDirPath(){
 		
 		return MessageFormat.format("{0}{1}{2}",this.groupId.replace(".", File.separatorChar+""),File.separatorChar,this.artifactId);
